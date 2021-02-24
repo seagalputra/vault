@@ -2,7 +2,7 @@ import os
 import yaml
 import json
 import socket
-from transaction import Transaction
+from .transaction import Transaction
 
 def load_config(path):
     with open(path, "r") as stream:

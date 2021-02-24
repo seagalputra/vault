@@ -1,6 +1,6 @@
 import argparse
 import os
-from server import load_config, configure_server
+from .server import load_config, configure_server
 
 def main():
     parser = argparse.ArgumentParser(description="Vault Application")
