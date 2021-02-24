@@ -12,9 +12,9 @@ class Transaction:
         id = transaction_request['id']
         nonce = w3.eth.getTransactionCount(transaction_request['from_address'])
         to_address = transaction_request['to_address']
-        amount = w3.toWei(int(transaction_request['amount']), 'ether')
-        gas_price = w3.toWei('50', 'gwei')
-        gas = 2000000
+        amount = w3.toWei(float(transaction_request['amount']), 'ether')
+        gas_price = w3.toWei('147', 'gwei')
+        gas = 21000
 
         transaction = {
                 'nonce': nonce,
@@ -25,5 +25,5 @@ class Transaction:
         }
 
         signed_transaction = w3.eth.account.signTransaction(transaction, self.private_key)
-        transaction_hash = w3.toHex(signed_transaction.hash)
+        transaction_hash = w3.toHex(signed_transaction.rawTransaction)
         return { 'id': id, 'tx': transaction_hash }

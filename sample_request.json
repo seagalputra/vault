@@ -1,7 +1,7 @@
 {
   "id": "1",
   "type": "sign_transfer",
-  "from_address": "0xc9fD61fA88B170275fA1de731950dcc45915e9dd",
-  "to_address": "0xF9081018382ADb58e9C5781f9624f02e9Ee56Aac",
-  "amount": "1"
+  "from_address": "0x6772aa39A2b5256653e10AF112Dfde19E20fB313",
+  "to_address": "0x57F031Ef64026D7fcA7B01800ED26c89E1D3af3e",
+  "amount": "0.000001"
 }
