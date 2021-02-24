@@ -14,19 +14,14 @@ def main():
         sys.exit(1)
 
     try:
-        request = {
-                "id": "1",
-                "type": "sign_transfer",
-                "from_address": "0xc9fD61fA88B170275fA1de731950dcc45915e9dd",
-                "to_address": "0xF9081018382ADb58e9C5781f9624f02e9Ee56Aac",
-                "amount": "1"
-        }
-        message = json.dumps(request).encode('utf-8')
-        unix_socket.sendall(message)
+        with open("sample_request.json") as file:
+            message = json.load(file)
+            request = json.dumps(message).encode('utf-8')
+            unix_socket.sendall(request)
+            data = unix_socket.recv(4096)
 
-        data = unix_socket.recv(4096)
-        response = json.loads(data)
-        print(response)
+            response = json.loads(data)
+            print(response)
 
     finally:
         unix_socket.close()
