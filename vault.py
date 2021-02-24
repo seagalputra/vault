@@ -8,9 +8,9 @@ import socket
 from web3 import Web3
 
 class Transaction:
-    def __init__(self):
-        self.node_url = os.environ['NODE_URL']
-        self.private_key = os.environ['PRIVATE_KEY']
+    def __init__(self, node_url, private_key):
+        self.node_url = node_url
+        self.private_key = private_key
 
     def create_transaction(self, transaction_request):
         w3 = Web3(Web3.HTTPProvider(self.node_url))
@@ -67,7 +67,7 @@ def configure_server(server_address):
                         break
 
                     request = json.loads(data)
-                    transaction = Transaction()
+                    transaction = Transaction(os.environ['NODE_URL'], os.environ['PRIVATE_KEY'])
                     signed_transaction = transaction.create_transaction(request)
                     byte_response = json.dumps(signed_transaction).encode('utf-8')
                     connection.sendall(byte_response)
