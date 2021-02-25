@@ -34,7 +34,7 @@ $ python vault.py <path>
 After successfully run the vault application, you can execute `client.py` to run the sample request.
 
 ```sh
-$ python client.py
+$ python client.py # or python3 client.py
 ```
 
 ## Example Request
