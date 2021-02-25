@@ -50,3 +50,7 @@ You can use the `sample-request.json` along with `client.py` to make request to 
   "amount": "some amount"
 }
 ```
+
+## Desclaimer
+
+All the credentials such as private key is for testing purpose only. I don't provide any huge amount of ETH to broadcast the transaction and the amount only valid in testnet.
