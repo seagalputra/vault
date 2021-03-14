@@ -4,6 +4,7 @@ import os
 import yaml
 import json
 import socket
+from decimal import Decimal
 
 from web3 import Web3
 
@@ -14,32 +15,40 @@ class Transaction:
         self.private_keys = private_keys
 
     def create_transaction(self, transaction_request):
-        w3 = Web3(Web3.HTTPProvider(self.node_url))
-        id = transaction_request['id']
-        from_address = transaction_request['from_address']
-        to_address = transaction_request['to_address']
-        amount = transaction_request['amount']
+        try:
+            w3 = Web3(Web3.HTTPProvider(self.node_url))
+            id = transaction_request['id']
+            from_address = transaction_request['from_address']
+            to_address = transaction_request['to_address']
 
-        nonce = w3.eth.getTransactionCount(from_address)
-        amount = w3.toWei(float(amount), 'ether')
-        gas_price = w3.toWei('147', 'gwei')
-        gas = 21000
+            nonce = w3.eth.getTransactionCount(from_address)
+            gas_price = w3.eth.gas_price
 
-        transaction = {
-            'nonce': nonce,
-            'to': to_address,
-            'value': amount,
-            'gas': gas,
-            'gasPrice': gas_price
-        }
-        filtered_key = list(filter(lambda key: key['address'] ==
-                                   from_address, self.private_keys))
-        private_key = filtered_key[0]['private_key']
+            transaction = {
+                'nonce': nonce,
+                'to': to_address,
+            }
 
-        signed_transaction = w3.eth.account.signTransaction(
-            transaction, private_key)
-        transaction_hash = w3.toHex(signed_transaction.rawTransaction)
-        return {'id': id, 'tx': transaction_hash}
+            gas_price = w3.eth.gas_price
+            gas_limit = w3.eth.estimateGas(transaction)
+            transaction_fee = w3.fromWei(gas_price, 'ether') * gas_limit
+
+            amount = Decimal(transaction_request['amount']) - transaction_fee
+
+            transaction['gas'] = gas_limit
+            transaction['value'] = w3.toWei(amount, 'ether')
+            transaction['gasPrice'] = gas_price
+
+            filtered_key = list(filter(lambda key: key['address'] ==
+                                       from_address, self.private_keys))
+            private_key = filtered_key[0]['private_key']
+
+            signed_transaction = w3.eth.account.signTransaction(
+                transaction, private_key)
+            transaction_hash = w3.toHex(signed_transaction.rawTransaction)
+            return {'id': id, 'tx': transaction_hash}
+        except Exception:
+            return {'id': id, 'message': f"Failed to create transaction, fee exceeds the amount"}
 
 
 def load_config(path):
