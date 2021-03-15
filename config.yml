@@ -1,4 +1,6 @@
 node_url: https://ropsten.infura.io/v3/7b92c53c4daa4e599084202b97b4f0bd
+# Add your private key here. One private key only valid for one address (unique).
+# Just follow the format by adding new field (address and private_key) that contains your address and your private_key.
 private_keys:
   - address: "0x6772aa39A2b5256653e10AF112Dfde19E20fB313"
     private_key: 1602b561ca40a72f92acedf84f0862961ad5179b23d4a49b7357ed6d0c39aa18

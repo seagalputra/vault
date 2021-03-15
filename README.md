@@ -57,3 +57,4 @@ You can use multiple message by adding new line in the `sample_test.txt` then ex
 
 - All the credentials such as private key is for testing purpose only. I don't provide any huge amount of ETH to broadcast the transaction and the amount only valid in testnet.
 - When send message using other client such as `socat`, new line character becomes `\\n` (with double backslash) that cause issue when reading the request message. It's recommend to use `client.py` file to test the application or you can write your own client.
+- If you want to create transaction using multiple private key, you can define the those private key into `config.yml`. Add those private key in the `private_keys` field and add another `address` and `private_key` as in the file.
