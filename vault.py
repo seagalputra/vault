@@ -70,7 +70,7 @@ def unlink_socket(address):
 
 
 def parse_message(messages):
-    return [message for message in messages.split("\n")]
+    return [message for message in messages.strip().split("\n")]
 
 
 def configure_server(server_address):

@@ -39,7 +39,7 @@ $ python client.py # or python3 client.py
 
 ## Example Request
 
-You can use the `sample-request.json` along with `client.py` to make request to the application or if you want to write your own request, here's the request specification.
+You can use the `sample_test.txt` along with `client.py` to make request to the application or if you want to write your own request, here's the request specification.
 
 ```json
 {
@@ -51,6 +51,9 @@ You can use the `sample-request.json` along with `client.py` to make request to 
 }
 ```
 
-## Desclaimer
+You can use multiple message by adding new line in the `sample_test.txt` then execute again using `client.py`.
 
-All the credentials such as private key is for testing purpose only. I don't provide any huge amount of ETH to broadcast the transaction and the amount only valid in testnet.
+## Notes
+
+- All the credentials such as private key is for testing purpose only. I don't provide any huge amount of ETH to broadcast the transaction and the amount only valid in testnet.
+- When send message using other client such as `socat`, new line character becomes `\\n` (with double backslash) that cause issue when reading the request message. It's recommend to use `client.py` file to test the application or you can write your own client.
